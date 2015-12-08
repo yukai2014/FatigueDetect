@@ -231,6 +231,9 @@ public class CameraView extends SurfaceView implements SurfaceHolder.Callback,
 					+ "/myCamera/pic/" + time + ".jpg";
 			Log.i("testFile", "path is " + path);
 			data2file(data, path);
+
+			int blink = IsBlink(data, 480, 600);
+			Log.i("testFile", "is blink? "+ blink);
 			camera.setPreviewCallback(null);
 			camera.stopPreview();
 			camera.release();
@@ -262,4 +265,9 @@ public class CameraView extends SurfaceView implements SurfaceHolder.Callback,
 	// {
 	// }
 
+	public static native int IsBlink(byte[] data, int w, int h);
+	
+	static {
+		 System.loadLibrary("eye");   
+	}
 }

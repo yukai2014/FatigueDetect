@@ -11,7 +11,6 @@
 #include "constants.h"
 #include "helpers.h"
 
-extern "C" {
 // Pre-declarations
 cv::Mat floodKillEdges(cv::Mat &mat);
 
@@ -19,7 +18,7 @@ cv::Mat floodKillEdges(cv::Mat &mat);
 
 #pragma mark Helpers
 
-int my_round(float f)
+int round(float f)
 { 
 if ((int)(f+0.5)>f) 
 return (int)f+1; 
@@ -29,8 +28,8 @@ return (int)f;
 
 cv::Point unscalePoint(cv::Point p, cv::Rect origSize) {
   float ratio = (((float)kFastEyeWidth)/origSize.width);
-  int x = my_round(p.x / ratio);
-  int y = my_round(p.y / ratio);
+  int x = round(p.x / ratio);
+  int y = round(p.y / ratio);
   return cv::Point(x,y);
 }
 
@@ -206,4 +205,4 @@ cv::Mat floodKillEdges(cv::Mat &mat) {
     mask.at<uchar>(p) = 0;
   }
   return mask;
-}}
+}

@@ -12,8 +12,16 @@ extern "C" {
  * Method:    IsBlink
  * Signature: ([BII)I
  */
-JNIEXPORT jint JNICALL Java_com_camera_test_CameraView_IsBlink
+JNIEXPORT jint JNICALL Java_com_camera_test_CameraView_IsBlink___3BII
   (JNIEnv *, jclass, jbyteArray, jint, jint);
+
+/*
+ * Class:     com_camera_test_CameraView
+ * Method:    IsBlink
+ * Signature: (Ljava/lang/String;)I
+ */
+JNIEXPORT jint JNICALL Java_com_camera_test_CameraView_IsBlink__Ljava_lang_String_2
+  (JNIEnv *, jclass, jstring);
 
 #ifdef __cplusplus
 }

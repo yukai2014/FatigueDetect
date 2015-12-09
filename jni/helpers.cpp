@@ -7,7 +7,7 @@
 #include <stdio.h>
 
 #include "constants.h"
-extern "C" {
+
 bool rectInImage(cv::Rect rect, cv::Mat image) {
   return rect.x > 0 && rect.y > 0 && rect.x+rect.width < image.cols &&
   rect.y+rect.height < image.rows;
@@ -36,4 +36,4 @@ double computeDynamicThreshold(const cv::Mat &mat, double stdDevFactor) {
   cv::meanStdDev(mat, meanMagnGrad, stdMagnGrad);
   double stdDev = stdMagnGrad[0] / sqrt((float)mat.rows*mat.cols);
   return stdDevFactor * stdDev + meanMagnGrad[0];
-}}
+}

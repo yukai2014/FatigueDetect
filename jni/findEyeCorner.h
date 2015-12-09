@@ -5,10 +5,10 @@
 
 #define kEyeLeft true
 #define kEyeRight false
- extern "C" {
+
 void createCornerKernels();
 void releaseCornerKernels();
 cv::Point2f findEyeCorner(cv::Mat region,bool left, bool left2);
 cv::Point2f findSubpixelEyeCorner(cv::Mat region, cv::Point maxP);
- }
+
 #endif

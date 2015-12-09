@@ -1,5 +1,6 @@
 LOCAL_PATH := $(call my-dir)  
 include $(CLEAR_VARS)  
+LOCAL_LDLIBS:=-L$(SYSROOT)/usr/lib -llog
 OPENCV_LIB_TYPE:=STATIC
 
 ifeq ("$(wildcard $(OPENCV_MK_PATH))","")  

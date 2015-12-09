@@ -5,6 +5,9 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
+import java.util.List;
+
+import android.R.string;
 import android.app.Activity;
 import android.content.Context;
 import android.content.pm.ActivityInfo;
@@ -16,7 +19,9 @@ import android.graphics.PointF;
 import android.hardware.Camera;
 import android.hardware.Camera.AutoFocusCallback;
 import android.hardware.Camera.CameraInfo;
+import android.hardware.Camera.Parameters;
 import android.hardware.Camera.ShutterCallback;
+import android.hardware.Camera.Size;
 import android.media.AudioManager;
 import android.media.FaceDetector;
 import android.media.FaceDetector.Face;
@@ -148,21 +153,31 @@ public class CameraView extends SurfaceView implements SurfaceHolder.Callback,
 		// TODO Auto-generated method stub
 
 		parameters = camera.getParameters();
+		
+		List<Size> pictureSizes = parameters.getSupportedPictureSizes();  
+		int length = pictureSizes.size();  
+		for (int i = 0; i < length; i++) {  
+		    Log.i("testFile","SupportedPictureSizes : " + pictureSizes.get(i).width + "x" + pictureSizes.get(i).height);  
+		}  
+		Log.i("testFile", "width is "+parameters.getPictureSize().width +" height is "+parameters.getPictureSize().height);
 		Log.i("testFile", "width is "+width +" height is "+height);
 //		parameters.setPreviewSize(480, 800);
 		if (this.getResources().getConfiguration().orientation != Configuration.ORIENTATION_LANDSCAPE) {
 			// 如果是竖屏
 			parameters.set("orientation", "portrait");
-//			// 在2.2以上可以使用
-//			camera.setDisplayOrientation(90);
+			parameters.set("rotation", 270);
+			
 			Log.i("testFile", "90");
 		} else {
 			parameters.set("orientation", "landscape");
 			// 在2.2以上可以使用
 			camera.setDisplayOrientation(90);
 		}
-		parameters.setPictureSize(480, 600);
+		parameters.setPictureSize(640, 480);
 		camera.setParameters(parameters);// 设置参数
+		parameters = camera.getParameters();
+		Size size = parameters.getPictureSize();
+		Log.i("testFile", "width is "+size.width + " height is "+ size.height);
 		try {
 			// 设置显示
 			camera.setPreviewDisplay(holder);
@@ -231,8 +246,17 @@ public class CameraView extends SurfaceView implements SurfaceHolder.Callback,
 					+ "/myCamera/pic/" + time + ".jpg";
 			Log.i("testFile", "path is " + path);
 			data2file(data, path);
+			
+			parameters = camera.getParameters();
+			Size size = parameters.getPictureSize();
+			Log.i("testFile", "width is "+size.width + " height is "+ size.height);
 
-			int blink = IsBlink(data, 480, 600);
+			Log.i("testFile", "file is :" +path);
+//			String blink = Blink();
+//			int blink = IsBlink();
+			int blink = IsBlink(path);
+//			int blink = IsBlink(data, size.width, size.height);
+			System.out.println("is blink??"+blink);
 			Log.i("testFile", "is blink? "+ blink);
 			camera.setPreviewCallback(null);
 			camera.stopPreview();
@@ -266,8 +290,15 @@ public class CameraView extends SurfaceView implements SurfaceHolder.Callback,
 	// }
 
 	public static native int IsBlink(byte[] data, int w, int h);
+	public static native int IsBlink(String path);
+//	public static native int IsBlink();
+//	public static native String Blink();
+	
 	
 	static {
+
+		 Log.i("testFile", "load ...");
 		 System.loadLibrary("eye");   
+		 Log.i("testFile", "load !");
 	}
 }

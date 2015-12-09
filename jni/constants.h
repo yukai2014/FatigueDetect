@@ -1,6 +1,6 @@
 #ifndef CONSTANTS_H
 #define CONSTANTS_H
- extern "C" {
+
 // Debugging
 const bool kPlotVectorField = false;
 
@@ -27,5 +27,5 @@ const float kPostProcessThreshold = 0.97;
 
 // Eye Corner
 const bool kEnableEyeCorner = false;
- }
+
 #endif

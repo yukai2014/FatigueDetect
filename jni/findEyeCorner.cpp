@@ -10,7 +10,7 @@
 #include "helpers.h"
 
 #include "findEyeCorner.h"
-extern "C" {
+
 cv::Mat *leftCornerKernel;
 cv::Mat *rightCornerKernel;
 
@@ -112,4 +112,4 @@ if(left){
 
   return cv::Point2f(sizeRegion.width / 2 + maxP2.x / 10,
                      sizeRegion.height / 2 + maxP2.y / 10);
-}}
+}

@@ -3,7 +3,7 @@
 #include "cxcore.h"
 #include "highgui.h"
 using namespace std;
-extern "C" {
+
 CvSeq *getImageContours(CvArr *src)
 {
 	cvThreshold(src, src, 100, 255, CV_THRESH_BINARY);
@@ -34,5 +34,4 @@ int main()
 	cvReleaseImage(&src1);
 	cvReleaseImage(&src2);
 	return 0;
-}
 }
